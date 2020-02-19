@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
         final Button demarrer = findViewById(R.id.demarrer);
         final Button apropos = findViewById(R.id.apropos);
+        final Button  solutions = findViewById(R.id.solutions);
         final ImageView pokeball = findViewById(R.id.pokeball);
         final TextView title = findViewById(R.id.title);
 
@@ -27,6 +28,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         apropos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        solutions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
