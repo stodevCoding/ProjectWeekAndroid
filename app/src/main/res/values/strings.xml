@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ProjectAndroid</string>
+    <string name="difficultylevel">Choisis ta difficulté</string>
 </resources>

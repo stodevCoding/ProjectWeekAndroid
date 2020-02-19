@@ -2,7 +2,11 @@ package com.stod.projectandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,12 +28,16 @@ public class MainActivity extends AppCompatActivity {
         demarrer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DialogFragment newFragment = new DialogFragment();
+                newFragment.show(getSupportFragmentManager(), "difficulty");
+                Log.i("MainActivity", "Click");
 
             }
         });
         apropos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("MainActivity", "Click");
 
             }
         });
@@ -37,8 +45,9 @@ public class MainActivity extends AppCompatActivity {
         solutions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Log.i("MainActivity", "Click");
             }
         });
     }
+
 }
