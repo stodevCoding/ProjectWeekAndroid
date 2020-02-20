@@ -88,3 +88,7 @@ lint/tmp/
 app/src/main/res/drawable/dracaufeu.png
 
 app/src/main/res/drawable/reptincel.png
+
+app/src/main/res/drawable/.DS_Store
+
+app/src/main/res/.DS_Store
