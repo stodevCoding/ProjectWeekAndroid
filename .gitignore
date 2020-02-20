@@ -84,3 +84,7 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 .idea/
+
+app/src/main/res/drawable/dracaufeu.png
+
+app/src/main/res/drawable/reptincel.png
