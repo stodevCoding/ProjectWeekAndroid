@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity {
-
+    public String selec;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +30,15 @@ public class HomeActivity extends AppCompatActivity {
                 DialogFragment newFragment = new DialogFragment();
                 newFragment.show(getSupportFragmentManager(), "difficulty");
                 Log.i("HomeActivity", "Click");
+
+                selec = getIntent().getParcelableExtra("selection");
+
+                if(selec != null) {
+                    Intent intent = new Intent(HomeActivity.this, QuestionFlascardActivity.class);
+                    intent.putExtra("selection", selec+"");
+                    startActivityForResult(intent, 1);
+                    Log.i("HomeActivity", "navigation flashCard");
+                }
 
             }
         });
