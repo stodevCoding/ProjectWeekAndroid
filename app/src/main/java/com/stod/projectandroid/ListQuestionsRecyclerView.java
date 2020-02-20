@@ -4,13 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.stod.projectandroid.api.ExchangeApi;
-import com.stod.projectandroid.api.RatesData;
-import com.stod.projectandroid.api.RatesWrapper;
-
+import com.stod.projectandroid.api.AnswersData;
+import com.stod.projectandroid.api.AnswersWrapper;
+import com.stod.projectandroid.api.AnwsersDifficultyWrapper;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +52,7 @@ public class ListQuestionsRecyclerView extends AppCompatActivity {
         // il va donc taper sur la baseUrl donnée
         // et parser le résultat en JSON
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.exchangeratesapi.io/")
+                .baseUrl("http://gryt.tech:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -58,25 +60,41 @@ public class ListQuestionsRecyclerView extends AppCompatActivity {
         // à partir du client retrofit
         ExchangeApi api = retrofit.create(ExchangeApi.class);
 
+        String difficulty = "";
+
         // Création de la requête
-        Call<RatesWrapper> call = api.getQuestions();
+        Call<List<AnwsersDifficultyWrapper>> call = api.getQuestions(difficulty);
+
+
 
         // Exécution de la requête en asynchrone
-        call.enqueue(new Callback<RatesWrapper>() {
+        call.enqueue(new Callback<List<AnwsersDifficultyWrapper>>() {
             @Override
-            public void onResponse(Call<RatesWrapper> call, Response<RatesWrapper> response) {
-                RatesData body = response.body().rates;
-                Log.i("CurrencyListActivity", "onResponse: " + body);
+            public void onResponse(Call<List<AnwsersDifficultyWrapper>> call, Response<List<AnwsersDifficultyWrapper>> response) {
+                for (AnwsersDifficultyWrapper a: response.body()) {
+                    String resPokemon = a.asset;
+                    String resType = a.asset_type;
+                    String resAnimated = a.detail_image;
+                    String difficulty = a.difficulty;
+                    AnswersData[] answers = a.answers;
+                    List<AnswersQuestions> answersPurposeList = new ArrayList<AnswersQuestions>();
 
-                questions.add(new Questions(R.drawable.p_of_pokemon, body.USD, "$"));
-                questions.add(new Questions(R.drawable.p_of_pokemon, body.GBP, "£"));
-                questions.add(new Questions(R.drawable.p_of_pokemon, body.JPY, "Y"));
+                    int resourceId = Resources.getSystem().getIdentifier(resPokemon, "drawable", "com.stod.projectandroid");
 
-                adapter.notifyDataSetChanged();
+                    for (AnswersData i : a.answers) {
+                        answersPurposeList.add(new AnswersQuestions(i.sentence, i.isRight));
+
+                    }
+
+                    questions.add(new Questions(resourceId, resType, resAnimated, difficulty,answersPurposeList));
+                }
+
+
+
             }
 
             @Override
-            public void onFailure(Call<RatesWrapper> call, Throwable t) {
+            public void onFailure(Call<List<AnwsersDifficultyWrapper>> call, Throwable t) {
                 Log.e("CurrencyListActivity", "onFailure: ", t);
             }
         });

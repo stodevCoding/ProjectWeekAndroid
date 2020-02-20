@@ -7,7 +7,7 @@
     android:layout_height="150dp">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/questionTextView"
         android:layout_width="0dp"
         android:layout_height="108dp"
         android:layout_marginStart="80dp"
@@ -23,7 +23,7 @@
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:contentDescription="P"
-        app:layout_constraintEnd_toStartOf="@+id/textView"
+        app:layout_constraintEnd_toStartOf="@+id/questionTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/p_of_pokemon" />

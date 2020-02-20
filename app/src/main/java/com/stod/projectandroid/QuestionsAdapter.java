@@ -24,15 +24,14 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView symbol;
-        final TextView rate;
+
+        final TextView questionTextView;
         final ImageView flag;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            flag = itemView.findViewById(R.id.nameAnthoTextView);
-            symbol = itemView.findViewById(R.id.nameAnthoTextView);
-            rate = itemView.findViewById(R.id.nameApplicationTextView);
+            flag = itemView.findViewById(R.id.imageView);
+            questionTextView = itemView.findViewById(R.id.questionTextView);
         }
     }
 
@@ -59,9 +58,8 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         Questions question = questions.get(position);
 
         // on met à jour l'UI en passant par le ViewHolder
-        holder.flag.setImageResource(question.flagId);
-        holder.symbol.setText(question.symbol);
-        holder.rate.setText(question.rate + "");
+        //holder.flag.setImageResource(question.i);
+        //holder.questionTextView.setText(question.questionTextView + "");
     }
 
     @Override
