@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +30,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 DialogFragment newFragment = new DialogFragment();
                 newFragment.show(getSupportFragmentManager(), "difficulty");
-                Log.i("MainActivity", "Click");
+                Log.i("HomeActivity", "Click");
 
             }
         });
         apropos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("MainActivity", "Click");
+                Log.i("HomeActivity", "Click");
 
             }
         });
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         solutions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("MainActivity", "Click");
+                Log.i("HomeActivity", "Click");
             }
         });
     }
