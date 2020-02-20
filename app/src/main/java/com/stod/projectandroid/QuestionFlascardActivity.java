@@ -61,9 +61,10 @@ public class QuestionFlascardActivity extends AppCompatActivity {
                             .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = getIntent();
+                                    Intent intent2 = new Intent(QuestionFlascardActivity.this, QuestionFlascardActivity.class);
+                                    startActivity(intent2);
                                     finish();
-                                    startActivity(intent);
+
                                 }
                             }).show();
                     Log.i(QuestionFlascardActivity.ACCESSIBILITY_SERVICE, "Bonne reponse");
@@ -76,10 +77,11 @@ public class QuestionFlascardActivity extends AppCompatActivity {
                             .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = getIntent();
+                                    Intent intent2 = new Intent(QuestionFlascardActivity.this, QuestionFlascardActivity.class);
+                                    intent2.putExtra("numQuestion", numQuestion); 
+                                    startActivity(intent2);
                                     finish();
-                                    //intent.putExtra("numQuestion", 2); ne fonctionne pas
-                                    startActivity(intent);
+
                                 }
                             }).show();
                     Log.i(QuestionFlascardActivity.ACCESSIBILITY_SERVICE, "Bonne reponse");
