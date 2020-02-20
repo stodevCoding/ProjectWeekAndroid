@@ -28,6 +28,6 @@ public class activity_results extends AppCompatActivity {
 
         int notation = score*100/total;
 
-        results.setText(notation);
+        results.setText(notation+"%");
     }
 }
