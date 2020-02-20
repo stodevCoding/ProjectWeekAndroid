@@ -39,7 +39,7 @@ public class QuestionFlascardActivity extends AppCompatActivity {
         final TextView noQuestion = findViewById(R.id.noQuestionText);
         noQuestion.setText("Question "+numQuestion);
         compteur+=1;
-        nom="bulbizare";
+        nom="pikachu";
         imageId=R.drawable.pikachu;
 
         final ImageView pokemonImage = findViewById(R.id.pokemonImageView);

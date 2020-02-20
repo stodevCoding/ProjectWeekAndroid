@@ -26,11 +26,11 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         final TextView questionTextView;
-        final ImageView flag;
+        final ImageView pofpokemon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            flag = itemView.findViewById(R.id.imageView);
+            pofpokemon = itemView.findViewById(R.id.imageView);
             questionTextView = itemView.findViewById(R.id.questionTextView);
         }
     }
@@ -56,10 +56,11 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // on récupère la donnée associée à cet index
         Questions question = questions.get(position);
+        String questionPurpose = "Quel est ce pokémon ?";
 
         // on met à jour l'UI en passant par le ViewHolder
-        //holder.flag.setImageResource(question.i);
-        //holder.questionTextView.setText(question.questionTextView + "");
+        holder.pofpokemon.setImageResource(R.drawable.p_of_pokemon);
+        holder.questionTextView.setText(questionPurpose);
     }
 
     @Override
