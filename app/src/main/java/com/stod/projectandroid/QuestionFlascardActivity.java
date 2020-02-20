@@ -34,7 +34,10 @@ public class QuestionFlascardActivity extends AppCompatActivity {
 
         //pokemon = getIntent().getParcelableExtra("pokemon");
         Intent intent = getIntent();
+        difficulty = intent.getStringExtra("selection");
         compteur = intent.getIntExtra("numQuestion",1);
+        Log.i(QuestionFlascardActivity.ACCESSIBILITY_SERVICE, difficulty);
+
         numQuestion = compteur;
         final TextView noQuestion = findViewById(R.id.noQuestionText);
         noQuestion.setText("Question "+numQuestion);
