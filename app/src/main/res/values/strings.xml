@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ProjectAndroid</string>
+    <string name="difficultylevel">Choisis ta difficulté</string>
+    <string name="notefinale">Note Finale</string>
+    <string name="note">Note</string>
+    <string name="xxx"><u>XXX</u></string>
 </resources>
