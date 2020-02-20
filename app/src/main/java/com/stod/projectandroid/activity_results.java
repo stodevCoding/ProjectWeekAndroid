@@ -2,8 +2,8 @@ package com.stod.projectandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.widget.TextView;
 
 public class activity_results extends AppCompatActivity {
@@ -14,7 +14,7 @@ public class activity_results extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
 
-        final TextView finalenote = findViewById(R.id.notefinale);
+        final TextView finalenote = findViewById(R.id.note);
         final TextView results = findViewById(R.id.results);
 
       // Intent intent = new Intent();
@@ -24,10 +24,10 @@ public class activity_results extends AppCompatActivity {
         int score = 14;
 
         String note = score+"/"+total;
-        finalenote.setText(note);
+        finalenote.setText(Html.fromHtml("<p><u>"+note+"</u></p>"));
 
         int notation = score*100/total;
 
-        results.setText(notation+"%");
+        results.setText(Html.fromHtml("<p><u>"+notation+"%</u></p>"));
     }
 }
