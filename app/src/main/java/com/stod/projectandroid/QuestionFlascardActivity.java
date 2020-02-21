@@ -59,7 +59,7 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
         final TextView noQuestion = findViewById(R.id.noQuestionText);
 
         compteur+=1;
-        //nom="pikachu";
+        //name="pikachu";
         //imageId=R.drawable.pikachu;
 
         final ImageView pokemonImage = findViewById(R.id.pokemonImageView);
@@ -69,28 +69,28 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
         final Button validate = findViewById(R.id.validateButton);
         final RadioGroup radioGroup = findViewById(R.id.answerRadioGroup);
 
-        // REQUETE HTTP
+        //  HTTP REQUEST
 
-        // Création du client retrofit
-        // il va donc taper sur la baseUrl donnée
-        // et parser le résultat en JSON
+        // Creation of the retrofit client
+        // He will take the data from the baseURL
+        // and parse it in JSON
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://gryt.tech:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        // Génération de notre API
-        // à partir du client retrofit
+        // API generation
+        // From the retrofit client
         ExchangeApi api = retrofit.create(ExchangeApi.class);
 
         String difficulty = getDifficulty();
 
-        // Création de la requête
+        // Request Creation
         Call<List<AnwsersDifficultyWrapper>> call = api.getQuestions(difficulty);
 
 
 
-        // Exécution de la requête en asynchrone
+        // Asynchronous executive request
         call.enqueue(new Callback<List<AnwsersDifficultyWrapper>>() {
             @Override
             public void onResponse(Call<List<AnwsersDifficultyWrapper>> call, Response<List<AnwsersDifficultyWrapper>> response) {

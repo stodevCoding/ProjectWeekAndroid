@@ -33,8 +33,8 @@ public class ListQuestionsRecyclerView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_questions_recycler_view);
 
-        // définition de la source données
-        // aujourd'hui en dur, mais peut provenir d'une API, BDD, etc.
+        // Data source definition
+        // Today in raw, but can be provided by an API, a BDD, etc.
 //        this.currencies.add(new Currency(R.drawable.flag_usa, 1.08f, "$"));
 //        this.currencies.add(new Currency(R.drawable.flag_japan, 118.59f, "Y"));
 
@@ -46,28 +46,29 @@ public class ListQuestionsRecyclerView extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        // REQUETE HTTP
+        //  HTTP REQUEST
 
-        // Création du client retrofit
-        // il va donc taper sur la baseUrl donnée
-        // et parser le résultat en JSON
+        // Creation of the retrofit client
+        // He will take the data from the baseURL
+        // and parse it in JSON
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://gryt.tech:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        // Génération de notre API
-        // à partir du client retrofit
+        // API generation
+        // From the retrofit client
         ExchangeApi api = retrofit.create(ExchangeApi.class);
 
         String difficulty = "";
 
-        // Création de la requête
+        // Request
         Call<List<AnwsersDifficultyWrapper>> call = api.getQuestions(difficulty);
 
 
 
-        // Exécution de la requête en asynchrone
+        // Asynchronous executive request
         call.enqueue(new Callback<List<AnwsersDifficultyWrapper>>() {
             @Override
             public void onResponse(Call<List<AnwsersDifficultyWrapper>> call, Response<List<AnwsersDifficultyWrapper>> response) {

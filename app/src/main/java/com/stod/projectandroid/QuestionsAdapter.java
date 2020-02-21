@@ -36,7 +36,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
     }
 
     /**
-     * Méthode appelée 1x à l'init pour chaque item
+     * Method called one time at the beginning for each item.
      */
     @NonNull
     @Override
@@ -50,7 +50,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
     }
 
     /**
-     * appelé à chaque fois qu'un item doit être dessiné à l'écran
+     * Called each time an item has to be printed on the screen.
      */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {

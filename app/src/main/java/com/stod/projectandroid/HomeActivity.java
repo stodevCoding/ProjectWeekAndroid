@@ -18,13 +18,13 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        final Button demarrer = findViewById(R.id.demarrer);
-        final Button apropos = findViewById(R.id.apropos);
+        final Button begin = findViewById(R.id.demarrer);
+        final Button about = findViewById(R.id.apropos);
         final Button  solutions = findViewById(R.id.solutions);
         final ImageView pokeball = findViewById(R.id.pokeball);
         final TextView title = findViewById(R.id.title);
 
-        demarrer.setOnClickListener(new View.OnClickListener() {
+        begin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogFragment newFragment = new DialogFragment();
@@ -43,7 +43,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        apropos.setOnClickListener(new View.OnClickListener() {
+        about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, About.class);
