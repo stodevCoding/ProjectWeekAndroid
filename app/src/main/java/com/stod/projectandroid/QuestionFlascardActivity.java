@@ -52,24 +52,20 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_flascard);
 
-        //pokemon = getIntent().getParcelableExtra("pokemon");
         Intent intent = getIntent();
         compteur = intent.getIntExtra("numQuestion",1);
         numQuestion = compteur;
         final TextView noQuestion = findViewById(R.id.noQuestionText);
 
         compteur+=1;
-        //nom="pikachu";
-        //imageId=R.drawable.pikachu;
 
         final ImageView pokemonImage = findViewById(R.id.pokemonImageView);
-        //pokemonImage.setImageResource(imageId);
         goodAnswer = nom;
 
         final Button validate = findViewById(R.id.validateButton);
         final RadioGroup radioGroup = findViewById(R.id.answerRadioGroup);
 
-        // REQUETE HTTP
+        // HTTP REQUEST
 
         // Création du client retrofit
         // il va donc taper sur la baseUrl donnée
@@ -142,7 +138,6 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
         }
 
         noQuestion.setText("Question "+numQuestion+ "sur " + questions.size());
-
 
 
         validate.setOnClickListener(new View.OnClickListener() {

@@ -85,5 +85,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <FrameLayout
+        android:id="@+id/zoomImageLayout"
+        android:layout_width="408dp"
+        android:layout_height="393dp"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="@+id/noQuestionText"
+        tools:layout_editor_absoluteX="1dp">
+
+    </FrameLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
