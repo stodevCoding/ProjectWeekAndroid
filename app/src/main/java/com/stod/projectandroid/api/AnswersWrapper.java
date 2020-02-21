@@ -7,6 +7,6 @@ public class AnswersWrapper {
     public String asset_type;
     public String detail_image;
     public String difficulty;
-    public List <AnswersData> answers;
+    public AnswersData[] answers;
 
 }

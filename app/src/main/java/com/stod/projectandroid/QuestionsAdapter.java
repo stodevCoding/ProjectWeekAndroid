@@ -1,6 +1,7 @@
 package com.stod.projectandroid;
 
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,7 @@ import androidx.annotation.NonNull;
 
 import java.util.List;
 
-public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.ViewHolder>  {
-
+public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.ViewHolder> {
 
 
     private final List<Questions> questions;
@@ -20,7 +20,6 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
     public QuestionsAdapter(List<Questions> questions) {
         this.questions = questions;
     }
-
 
 
     static class ViewHolder extends RecyclerView.ViewHolder {

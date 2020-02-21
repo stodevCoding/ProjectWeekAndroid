@@ -12,7 +12,8 @@ import android.util.Log;
 import com.stod.projectandroid.api.ExchangeApi;
 import com.stod.projectandroid.api.AnswersData;
 import com.stod.projectandroid.api.AnswersWrapper;
-import com.stod.projectandroid.api.AnwsersDifficultyWrapper;
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,15 +64,14 @@ public class ListQuestionsRecyclerView extends AppCompatActivity {
         String difficulty = "";
 
         // Création de la requête
-        Call<List<AnwsersDifficultyWrapper>> call = api.getQuestions(difficulty);
-
+        Call<List<AnswersWrapper>> call = api.getAllQuestions();
 
 
         // Exécution de la requête en asynchrone
-        call.enqueue(new Callback<List<AnwsersDifficultyWrapper>>() {
+        call.enqueue(new Callback<List<AnswersWrapper>>() {
             @Override
-            public void onResponse(Call<List<AnwsersDifficultyWrapper>> call, Response<List<AnwsersDifficultyWrapper>> response) {
-                for (AnwsersDifficultyWrapper a: response.body()) {
+            public void onResponse(Call<List<AnswersWrapper>> call, Response<List<AnswersWrapper>> response) {
+                for (AnswersWrapper a : response.body()) {
                     String resPokemon = a.asset;
                     String resType = a.asset_type;
                     String resAnimated = a.detail_image;
@@ -86,15 +86,13 @@ public class ListQuestionsRecyclerView extends AppCompatActivity {
 
                     }
 
-                    questions.add(new Questions(resPokemon, resType, resAnimated, difficulty,answersPurposeList));
+                    questions.add(new Questions(resPokemon, resType, resAnimated, difficulty, answersPurposeList));
                 }
-
-
-
+                adapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<List<AnwsersDifficultyWrapper>> call, Throwable t) {
+            public void onFailure(Call<List<AnswersWrapper>> call, Throwable t) {
                 Log.e("CurrencyListActivity", "onFailure: ", t);
             }
         });

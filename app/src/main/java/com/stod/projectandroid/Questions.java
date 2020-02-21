@@ -14,7 +14,6 @@ import java.util.List;
 public class Questions implements Parcelable {
 
 
-
     private final String resPokemon;
     private final String resType;
     private final String resAnimated;

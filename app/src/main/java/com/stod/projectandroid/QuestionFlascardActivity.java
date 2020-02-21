@@ -38,7 +38,6 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
 
     private int compteur;
     private int numQuestion;
-    private boolean isRight;
     private String namePokPurpose;
     private AnswersQuestions goodAnswer;
     private int nbOfGoodAnswers;
@@ -73,16 +72,16 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
 
 
         for (AnswersQuestions answQuest : responses) {
-                RadioButton rb = new RadioButton(QuestionFlascardActivity.this);
-                rb.setText(answQuest.sentence);
-                namePokPurpose = rb.getText().toString();
-                rb.setTag(answQuest);
+            RadioButton rb = new RadioButton(QuestionFlascardActivity.this);
+            rb.setText(answQuest.sentence);
+            namePokPurpose = rb.getText().toString();
+            rb.setTag(answQuest);
 
-                radioGroup.addView(rb);
+            radioGroup.addView(rb);
 
-                if (answQuest.isRight) {
-                    goodAnswer = answQuest;
-                    Log.i(TAG, goodAnswer + "");
+            if (answQuest.isRight) {
+                goodAnswer = answQuest;
+                Log.i(TAG, goodAnswer + "");
             }
 
         }
@@ -95,7 +94,7 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
 
                 int idButtonChecked = radioGroup.getCheckedRadioButtonId();
                 RadioButton selectedButton = findViewById(idButtonChecked);
-                AnswersQuestions value = (AnswersQuestions)selectedButton.getTag();
+                AnswersQuestions value = (AnswersQuestions) selectedButton.getTag();
                 Log.i(QuestionFlascardActivity.ACCESSIBILITY_SERVICE, value + "");
 
                 if (value.isRight) {
@@ -106,8 +105,8 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
                             .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Log.i(TAG, "compteur : "+compteur+" et numberQuestions : " + numberQuestions);
-                                    if(compteur -1 < numberQuestions) {
+                                    Log.i(TAG, "compteur : " + compteur + " et numberQuestions : " + numberQuestions);
+                                    if (compteur - 1 < numberQuestions) {
                                         compteur += 1;
                                         Intent intent2 = new Intent(QuestionFlascardActivity.this, QuestionFlascardActivity.class);
                                         intent2.putExtra("numQuestion", compteur);
@@ -115,7 +114,7 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
                                         intent2.putParcelableArrayListExtra("listFlashCard", listFlashCard);
                                         startActivity(intent2);
                                         finish();
-                                    }else if(compteur-1 == numberQuestions){
+                                    } else if (compteur - 1 == numberQuestions) {
                                         Intent intent2 = new Intent(QuestionFlascardActivity.this, activity_results.class);
                                         intent2.putExtra("numQuestion", compteur);
                                         intent2.putExtra("numberQuestions", listFlashCard.size());
@@ -135,8 +134,8 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
                             .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Log.i(TAG, "compteur : "+compteur+" et numberQuestions : "+numberQuestions);
-                                    if(compteur < numberQuestions) {
+                                    Log.i(TAG, "compteur : " + compteur + " et numberQuestions : " + numberQuestions);
+                                    if (compteur < numberQuestions) {
                                         compteur += 1;
                                         Intent intent2 = new Intent(QuestionFlascardActivity.this, QuestionFlascardActivity.class);
                                         intent2.putExtra("numQuestion", compteur);
@@ -144,7 +143,7 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
                                         intent2.putParcelableArrayListExtra("listFlashCard", listFlashCard);
                                         startActivity(intent2);
                                         finish();
-                                    }else if(compteur-1 == numberQuestions){
+                                    } else if (compteur - 1 == numberQuestions) {
 
                                         Intent intent2 = new Intent(QuestionFlascardActivity.this, activity_results.class);
                                         intent2.putExtra("numQuestion", compteur);
@@ -162,7 +161,6 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
         });
 
     }
-
 
 
     @Override
