@@ -56,6 +56,7 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
         Intent intent = getIntent();
         compteur = intent.getIntExtra("numQuestion", 1);
         numQuestion = compteur;
+        int numberQuestions = intent.getIntExtra("numberQuestions", 0);
         final TextView noQuestion = findViewById(R.id.noQuestionText);
 
 
@@ -79,7 +80,7 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
         }
 
 
-        noQuestion.setText("Question " + numQuestion + "sur " + questions.size());
+        noQuestion.setText("Question " + numQuestion + "sur " + numberQuestions);
 
 
         validate.setOnClickListener(new View.OnClickListener() {

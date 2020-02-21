@@ -116,6 +116,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
                 Intent intent = new Intent(HomeActivity.this, QuestionFlascardActivity.class);
                 intent.putExtra("difficulty", difficulty);
+                intent.putExtra("numberQuestions", lstFlashcard.size());
                 intent.putParcelableArrayListExtra("listFlashCard", lstFlashcard);
                 startActivity(intent);
             }
