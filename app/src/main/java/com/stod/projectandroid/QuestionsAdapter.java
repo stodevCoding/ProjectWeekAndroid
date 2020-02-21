@@ -41,11 +41,11 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // on converti le fichier XML d'item en objet Java
+        // Convert the XML from layout to a Java object.
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_question, parent, false);
 
-        // instancier le ViewHolder qui sera TOUJOURS lié à cette vue
+        // Instantiate the ViewHolder that will ALWAYS be linked to this View.
         return new ViewHolder(view);
     }
 
@@ -54,11 +54,11 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
      */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        // on récupère la donnée associée à cet index
+        // Data linked to this index
         Questions question = questions.get(position);
         String questionPurpose = "Quel est ce pokémon ?";
 
-        // on met à jour l'UI en passant par le ViewHolder
+        // Update of the UI by the ViewHolder
         holder.pofpokemon.setImageResource(R.drawable.p_of_pokemon);
         holder.questionTextView.setText(questionPurpose);
     }

@@ -24,6 +24,7 @@ public class HomeActivity extends AppCompatActivity {
         final ImageView pokeball = findViewById(R.id.pokeball);
         final TextView title = findViewById(R.id.title);
 
+
         begin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -144,7 +144,7 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
         noQuestion.setText("Question "+numQuestion+ "sur " + questions.size());
 
 
-
+        //called each time an answer is given to confirm his validity.
         validate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
