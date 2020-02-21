@@ -3,8 +3,12 @@ package com.stod.projectandroid;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 public class AnswersQuestions implements Parcelable {
     public String sentence;
+
+
     public boolean isRight;
 
     public AnswersQuestions(String sentence, boolean isRight) {

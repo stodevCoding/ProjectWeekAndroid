@@ -33,18 +33,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class QuestionFlascardActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "QuestionFlascardActivi";
-    private QuestionsAdapter adapter;
+    //private QuestionsAdapter adapter;
     private List<Questions> questions = new ArrayList<>();
 
-    private Pokemon pokemon;
-    private String goodAnswer;
-    private String difficulty;
     private int compteur;
     private int numQuestion;
-
-    private String nom;
-    @DrawableRes
-    public int imageId;
+    private boolean isRight;
+    private String namePokPurpose;
+    private AnswersQuestions goodAnswer;
+    private int nbOfGoodAnswers;
 
 
     @Override
@@ -55,6 +52,7 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
         ArrayList<Questions> listFlashCard = getIntent().getParcelableArrayListExtra("listFlashCard");
         Intent intent = getIntent();
         compteur = intent.getIntExtra("numQuestion", 1);
+        nbOfGoodAnswers = intent.getIntExtra("nbOfGoodAnswers", 0);
         numQuestion = compteur;
         int numberQuestions = intent.getIntExtra("numberQuestions", 0);
         final TextView noQuestion = findViewById(R.id.noQuestionText);
@@ -72,15 +70,23 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
 
         pokemonImage.setImageResource(resourceId);
         List<AnswersQuestions> responses = quest.getAnswers();
+
+
         for (AnswersQuestions answQuest : responses) {
                 RadioButton rb = new RadioButton(QuestionFlascardActivity.this);
                 rb.setText(answQuest.sentence);
+                namePokPurpose = rb.getText().toString();
+                rb.setTag(answQuest);
+
                 radioGroup.addView(rb);
 
+                if (answQuest.isRight) {
+                    goodAnswer = answQuest;
+                    Log.i(TAG, goodAnswer + "");
+            }
+
         }
-
-
-        noQuestion.setText("Question " + numQuestion + "sur " + numberQuestions);
+        noQuestion.setText("Question " + numQuestion + " sur " + numberQuestions);
 
 
         validate.setOnClickListener(new View.OnClickListener() {
@@ -89,41 +95,64 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
 
                 int idButtonChecked = radioGroup.getCheckedRadioButtonId();
                 RadioButton selectedButton = findViewById(idButtonChecked);
-                String value = selectedButton.getText().toString();
+                AnswersQuestions value = (AnswersQuestions)selectedButton.getTag();
                 Log.i(QuestionFlascardActivity.ACCESSIBILITY_SERVICE, value + "");
 
-                if (value.contains("RadioButton3")) {
+                if (value.isRight) {
                     new AlertDialog.Builder(QuestionFlascardActivity.this)
                             .setTitle("Bonne réponse")
-                            .setMessage("La bonne réponse était " + nom)
+                            .setMessage("La bonne réponse est " + goodAnswer.sentence)
                             .setCancelable(true)
                             .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    compteur += 1;
-                                    Intent intent2 = new Intent(QuestionFlascardActivity.this, QuestionFlascardActivity.class);
-                                    intent2.putExtra("numQuestion", compteur);
-                                    intent2.putExtra("numberQuest", questions.indexOf(compteur));
-                                    startActivity(intent2);
-                                    finish();
-
+                                    Log.i(TAG, "compteur : "+compteur+" et numberQuestions : " + numberQuestions);
+                                    if(compteur -1 < numberQuestions) {
+                                        compteur += 1;
+                                        Intent intent2 = new Intent(QuestionFlascardActivity.this, QuestionFlascardActivity.class);
+                                        intent2.putExtra("numQuestion", compteur);
+                                        intent2.putExtra("numberQuestions", listFlashCard.size());
+                                        intent2.putParcelableArrayListExtra("listFlashCard", listFlashCard);
+                                        startActivity(intent2);
+                                        finish();
+                                    }else if(compteur-1 == numberQuestions){
+                                        Intent intent2 = new Intent(QuestionFlascardActivity.this, activity_results.class);
+                                        intent2.putExtra("numQuestion", compteur);
+                                        intent2.putExtra("numberQuestions", listFlashCard.size());
+                                        intent2.putExtra("nbOfGoodAnswers", nbOfGoodAnswers);
+                                        intent2.putParcelableArrayListExtra("listFlashCard", listFlashCard);
+                                        startActivity(intent2);
+                                        finish();
+                                    }
                                 }
                             }).show();
                     Log.i(QuestionFlascardActivity.ACCESSIBILITY_SERVICE, "Bonne reponse");
                 } else {
                     new AlertDialog.Builder(QuestionFlascardActivity.this)
                             .setTitle("Mauvaise réponse")
-                            .setMessage("La bonne réponse était " + nom)
+                            .setMessage("La bonne réponse était " + goodAnswer.sentence)
                             .setCancelable(true)
                             .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    compteur += 1;
-                                    Intent intent2 = new Intent(QuestionFlascardActivity.this, QuestionFlascardActivity.class);
-                                    intent2.putExtra("numQuestion", compteur);
-                                    startActivity(intent2);
-                                    finish();
+                                    Log.i(TAG, "compteur : "+compteur+" et numberQuestions : "+numberQuestions);
+                                    if(compteur < numberQuestions) {
+                                        compteur += 1;
+                                        Intent intent2 = new Intent(QuestionFlascardActivity.this, QuestionFlascardActivity.class);
+                                        intent2.putExtra("numQuestion", compteur);
+                                        intent2.putExtra("numberQuestions", listFlashCard.size());
+                                        intent2.putParcelableArrayListExtra("listFlashCard", listFlashCard);
+                                        startActivity(intent2);
+                                        finish();
+                                    }else if(compteur-1 == numberQuestions){
 
+                                        Intent intent2 = new Intent(QuestionFlascardActivity.this, activity_results.class);
+                                        intent2.putExtra("numQuestion", compteur);
+                                        intent2.putExtra("numberQuestions", listFlashCard.size());
+                                        intent2.putParcelableArrayListExtra("listFlashCard", listFlashCard);
+                                        startActivity(intent2);
+                                        finish();
+                                    }
                                 }
                             }).show();
                     Log.i(QuestionFlascardActivity.ACCESSIBILITY_SERVICE, "Bonne reponse");
@@ -134,12 +163,6 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
 
     }
 
-    public String getDifficulty() {
-        Intent intent = getIntent();
-        String difficulty = intent.getStringExtra("difficulty");
-
-        return difficulty;
-    }
 
 
     @Override
