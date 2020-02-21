@@ -15,14 +15,14 @@ public class Questions implements Parcelable {
 
 
 
-    private final int resPokemon;
+    private final String resPokemon;
     private final String resType;
     private final String resAnimated;
     private final String difficulty;
-    private List<AnswersQuestions> answers;
+    private ArrayList<AnswersQuestions> answers;
 
 
-    public Questions(int resPokemon, String resType, String resAnimated, String difficulty, List<AnswersQuestions> answers) {
+    public Questions(String resPokemon, String resType, String resAnimated, String difficulty, ArrayList<AnswersQuestions> answers) {
         this.resPokemon = resPokemon;
         this.resType = resType;
         this.resAnimated = resAnimated;
@@ -30,19 +30,22 @@ public class Questions implements Parcelable {
         this.answers = answers;
     }
 
+
     protected Questions(Parcel in) {
-        resPokemon = in.readInt();
+        resPokemon = in.readString();
         resType = in.readString();
         resAnimated = in.readString();
         difficulty = in.readString();
+        answers = in.createTypedArrayList(AnswersQuestions.CREATOR);
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(resPokemon);
+        dest.writeString(resPokemon);
         dest.writeString(resType);
         dest.writeString(resAnimated);
         dest.writeString(difficulty);
+        dest.writeTypedList(answers);
     }
 
     @Override
@@ -62,7 +65,7 @@ public class Questions implements Parcelable {
         }
     };
 
-    public int getResPokemon() {
+    public String getResPokemon() {
         return resPokemon;
     }
 
@@ -78,7 +81,7 @@ public class Questions implements Parcelable {
         return difficulty;
     }
 
-    public List<AnswersQuestions> getAnswers() {
+    public ArrayList<AnswersQuestions> getAnswers() {
         return answers;
     }
 }

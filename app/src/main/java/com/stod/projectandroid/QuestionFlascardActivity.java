@@ -52,97 +52,34 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_flascard);
 
-        //pokemon = getIntent().getParcelableExtra("pokemon");
+        ArrayList<Questions> listFlashCard = getIntent().getParcelableArrayListExtra("listFlashCard");
         Intent intent = getIntent();
-        compteur = intent.getIntExtra("numQuestion",1);
+        compteur = intent.getIntExtra("numQuestion", 1);
         numQuestion = compteur;
         final TextView noQuestion = findViewById(R.id.noQuestionText);
 
-        compteur+=1;
-        //nom="pikachu";
-        //imageId=R.drawable.pikachu;
 
         final ImageView pokemonImage = findViewById(R.id.pokemonImageView);
-        //pokemonImage.setImageResource(imageId);
-        goodAnswer = nom;
-
         final Button validate = findViewById(R.id.validateButton);
         final RadioGroup radioGroup = findViewById(R.id.answerRadioGroup);
 
-        // REQUETE HTTP
-
-        // Création du client retrofit
-        // il va donc taper sur la baseUrl donnée
-        // et parser le résultat en JSON
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://gryt.tech:8080/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        // Génération de notre API
-        // à partir du client retrofit
-        ExchangeApi api = retrofit.create(ExchangeApi.class);
-
-        String difficulty = getDifficulty();
-
-        // Création de la requête
-        Call<List<AnwsersDifficultyWrapper>> call = api.getQuestions(difficulty);
+        Questions quest = listFlashCard.get(compteur);
 
 
-
-        // Exécution de la requête en asynchrone
-        call.enqueue(new Callback<List<AnwsersDifficultyWrapper>>() {
-            @Override
-            public void onResponse(Call<List<AnwsersDifficultyWrapper>> call, Response<List<AnwsersDifficultyWrapper>> response) {
-                for (AnwsersDifficultyWrapper a: response.body()) {
-                    String resPokemon = a.asset;
-                    String resType = a.asset_type;
-                    String resAnimated = a.detail_image;
-                    String difficulty = a.difficulty;
-                    AnswersData[] answers = a.answers;
-                    List<AnswersQuestions> answersPurposeList = new ArrayList<AnswersQuestions>();
-
-                    int resourceId = Resources.getSystem().getIdentifier(resPokemon, "drawable", "com.stod.projectandroid");
-
-                    for (AnswersData i : a.answers) {
-                        answersPurposeList.add(new AnswersQuestions(i.sentence, i.isRight));
-
-                    }
-
-                    questions.add(new Questions(resourceId, resType, resAnimated, difficulty,answersPurposeList));
-                }
+        int resourceId = getResources().getIdentifier(quest.getResPokemon(), "drawable", "com.stod.projectandroid");
 
 
-
-            }
-
-            @Override
-            public void onFailure(Call<List<AnwsersDifficultyWrapper>> call, Throwable t) {
-                Log.e("CurrencyListActivity", "onFailure: ", t);
-            }
-        });
-
-        //END HTTP REQUEST
-
-        for (Questions quest : questions) {
-            
-            pokemonImage.setImageResource(quest.getResPokemon());
-            List<AnswersQuestions> responses = quest.getAnswers();
-            for (AnswersQuestions answQuest: responses) {
-                for (int i=0; i<responses.size(); i++ ) {
-                    RadioButton rb = new RadioButton(this);
-                    rb.setText(answQuest.sentence);
-                    rb.setId(i);
-                    rb.setOnClickListener(this);
-                    radioGroup.addView(rb);
-                }
-            }
-
+        pokemonImage.setImageResource(resourceId);
+        List<AnswersQuestions> responses = quest.getAnswers();
+        for (AnswersQuestions answQuest : responses) {
+                RadioButton rb = new RadioButton(QuestionFlascardActivity.this);
+                rb.setText(answQuest.sentence);
+                radioGroup.addView(rb);
 
         }
 
-        noQuestion.setText("Question "+numQuestion+ "sur " + questions.size());
 
+        noQuestion.setText("Question " + numQuestion + "sur " + questions.size());
 
 
         validate.setOnClickListener(new View.OnClickListener() {
@@ -154,14 +91,15 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
                 String value = selectedButton.getText().toString();
                 Log.i(QuestionFlascardActivity.ACCESSIBILITY_SERVICE, value + "");
 
-                if(value.contains("RadioButton3")){
+                if (value.contains("RadioButton3")) {
                     new AlertDialog.Builder(QuestionFlascardActivity.this)
                             .setTitle("Bonne réponse")
-                            .setMessage("La bonne réponse était "+ nom)
+                            .setMessage("La bonne réponse était " + nom)
                             .setCancelable(true)
                             .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    compteur += 1;
                                     Intent intent2 = new Intent(QuestionFlascardActivity.this, QuestionFlascardActivity.class);
                                     intent2.putExtra("numQuestion", compteur);
                                     intent2.putExtra("numberQuest", questions.indexOf(compteur));
@@ -171,15 +109,15 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
                                 }
                             }).show();
                     Log.i(QuestionFlascardActivity.ACCESSIBILITY_SERVICE, "Bonne reponse");
-                }
-                else{
+                } else {
                     new AlertDialog.Builder(QuestionFlascardActivity.this)
                             .setTitle("Mauvaise réponse")
-                            .setMessage("La bonne réponse était "+ nom)
+                            .setMessage("La bonne réponse était " + nom)
                             .setCancelable(true)
                             .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    compteur += 1;
                                     Intent intent2 = new Intent(QuestionFlascardActivity.this, QuestionFlascardActivity.class);
                                     intent2.putExtra("numQuestion", compteur);
                                     startActivity(intent2);
@@ -195,9 +133,7 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
 
     }
 
-    public String getDifficulty()
-
-    {
+    public String getDifficulty() {
         Intent intent = getIntent();
         String difficulty = intent.getStringExtra("difficulty");
 
@@ -207,7 +143,7 @@ public class QuestionFlascardActivity extends AppCompatActivity implements View.
 
     @Override
     public void onClick(View v) {
-        Log.d(TAG, " Name " + ((RadioButton)v).getText() +" Id is "+v.getId());
+        Log.d(TAG, " Name " + ((RadioButton) v).getText() + " Id is " + v.getId());
 
     }
 }

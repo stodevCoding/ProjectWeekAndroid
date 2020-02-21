@@ -77,7 +77,7 @@ public class ListQuestionsRecyclerView extends AppCompatActivity {
                     String resAnimated = a.detail_image;
                     String difficulty = a.difficulty;
                     AnswersData[] answers = a.answers;
-                    List<AnswersQuestions> answersPurposeList = new ArrayList<AnswersQuestions>();
+                    ArrayList<AnswersQuestions> answersPurposeList = new ArrayList<AnswersQuestions>();
 
                     int resourceId = Resources.getSystem().getIdentifier(resPokemon, "drawable", "com.stod.projectandroid");
 
@@ -86,7 +86,7 @@ public class ListQuestionsRecyclerView extends AppCompatActivity {
 
                     }
 
-                    questions.add(new Questions(resourceId, resType, resAnimated, difficulty,answersPurposeList));
+                    questions.add(new Questions(resPokemon, resType, resAnimated, difficulty,answersPurposeList));
                 }
 
 
